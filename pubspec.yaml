@@ -1,0 +1,16 @@
+name: pingpongcounter
+description: A ping pong score counter
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.17.6 <3.0.0'
+
+dependencies:
+  dafluta: ^3.6.0
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^2.0.1

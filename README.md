@@ -1,2 +1,1 @@
-# ping-pong-counter
-Ping Pong Counter
+# Ping Pong Counter
