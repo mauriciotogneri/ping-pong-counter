@@ -137,18 +137,12 @@ class ScoreState extends BaseState {
     final int totalPoints = points[0] + points[1];
 
     if (totalPoints < 20) {
-      if (starter == 0) {
-        server = (totalPoints ~/ 2) % 2;
-      } else if (starter == 1) {
-        server = ((totalPoints + starter!) ~/ 2) % 2;
-      }
+      server = (totalPoints ~/ 2) % 2;
     } else {
-      if (starter == 0) {
-        server = totalPoints % 2;
-      } else if (starter == 1) {
-        server = (totalPoints + starter!) % 2;
-      }
+      server = totalPoints % 2;
     }
+
+    server = (server! + starter!) % 2;
   }
 
   void _showMessage(BuildContext context, String message) =>
