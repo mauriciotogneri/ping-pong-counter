@@ -70,7 +70,7 @@ class ScoreButton extends StatelessWidget {
                 alignment:
                     (playerId == 0) ? Alignment.topLeft : Alignment.topRight,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     '${state.sets[playerId]}',
                     style: TextStyle(
