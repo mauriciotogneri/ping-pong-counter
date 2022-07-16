@@ -123,7 +123,7 @@ class ScoreState extends BaseState {
   }
 
   void onLongTap(int playerId) {
-    if (server == null) {
+    if (starter == null) {
       starter = playerId;
     } else {
       points[playerId]--;
@@ -137,9 +137,17 @@ class ScoreState extends BaseState {
     final int totalPoints = points[0] + points[1];
 
     if (totalPoints < 20) {
-      server = (totalPoints ~/ 2) % 2;
+      if (starter == 0) {
+        server = (totalPoints ~/ 2) % 2;
+      } else if (starter == 1) {
+        server = ((totalPoints + starter!) ~/ 2) % 2;
+      }
     } else {
-      server = totalPoints % 2;
+      if (starter == 0) {
+        server = totalPoints % 2;
+      } else if (starter == 1) {
+        server = (totalPoints + starter!) % 2;
+      }
     }
   }
 
@@ -155,7 +163,7 @@ class ScoreState extends BaseState {
       return 0;
     } else if ((points[1] == 11) && (points[0] < 10)) {
       return 1;
-    } else if ((points[0] > 10) && (points[1] > 10)) {
+    } else if ((points[0] >= 10) && (points[1] >= 10)) {
       if ((points[0] - points[1]) > 1) {
         return 0;
       } else if ((points[1] - points[0]) > 1) {
