@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   dafluta: ^3.6.0
-  wakelock: ^0.6.2
   just_audio: ^0.9.27
   fluttertoast: ^8.0.9
 

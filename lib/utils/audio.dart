@@ -8,12 +8,18 @@ class Audio {
   static const String SOUND_SAD_TROMBONE = 'sound_sad_trombone';
 
   Future playSound(String sound) async {
+    await stopSound(sound);
     soundPlayers[sound]?.play();
   }
 
+  Future stopSound(String sound) async {
+    await soundPlayers[sound]?.pause();
+    await soundPlayers[sound]?.seek(Duration.zero);
+  }
+
   Future load() async {
-    //soundPlayers[SOUND_CHOLE] = await _getPlayer(SOUND_CHOLE);
-    //soundPlayers[SOUND_SNAKE_BITE] = await _getPlayer(SOUND_SNAKE_BITE);
+    soundPlayers[SOUND_CHOLE] = await _getPlayer(SOUND_CHOLE);
+    soundPlayers[SOUND_SNAKE_BITE] = await _getPlayer(SOUND_SNAKE_BITE);
     soundPlayers[SOUND_SAD_TROMBONE] = await _getPlayer(SOUND_SAD_TROMBONE);
   }
 
