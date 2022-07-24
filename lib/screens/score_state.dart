@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pingpongcounter/platform/platform_none.dart'
     if (dart.library.html) 'package:pingpongcounter/platform/platform_web.dart';
+import 'package:pingpongcounter/utils/audio.dart';
 
 class ScoreState extends BaseState {
   int? server;
@@ -11,6 +12,12 @@ class ScoreState extends BaseState {
   List<int> sets = [0, 0];
   bool isFullscreen = false;
   bool blueFirst = true;
+  final Audio audio = Audio();
+
+  @override
+  void onLoad() {
+    audio.load();
+  }
 
   void onSingleTap(BuildContext context, int playerId) {
     if (server != null) {
@@ -116,7 +123,57 @@ class ScoreState extends BaseState {
     PlatformMethods().webFullscreen(isFullscreen);
   }
 
-  void onSounds() {
-    // TODO(momo): implement
+  void onSounds(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(0),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SoundEntry(
+                name: 'Chole',
+                path: Audio.SOUND_CHOLE,
+                audio: audio,
+              ),
+              SoundEntry(
+                name: 'Snake Bite',
+                path: Audio.SOUND_SNAKE_BITE,
+                audio: audio,
+              ),
+              SoundEntry(
+                name: 'Sad Trombone',
+                path: Audio.SOUND_SAD_TROMBONE,
+                audio: audio,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class SoundEntry extends StatelessWidget {
+  final String name;
+  final String path;
+  final Audio audio;
+
+  const SoundEntry({
+    required this.name,
+    required this.path,
+    required this.audio,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(name),
+      onTap: () {
+        audio.playSound(path);
+        Navigator.of(context).pop();
+      },
+    );
   }
 }

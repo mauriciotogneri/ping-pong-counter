@@ -57,7 +57,7 @@ class Menu extends StatelessWidget {
             ButtonDivider(constraints.maxHeight / 6),
             MenuButton(
               icon: Icons.music_note,
-              onPressed: state.onSounds,
+              onPressed: () => state.onSounds(context),
               size: constraints.maxHeight / 6,
             ),
             ButtonDivider(constraints.maxHeight / 6),
