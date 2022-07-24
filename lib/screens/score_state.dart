@@ -34,7 +34,7 @@ class ScoreState extends BaseState {
 
       notify();
     } else {
-      _showMessage(context, 'Server not defined');
+      _showMessage(context, 'Server not defined. Press and hold to select server');
     }
   }
 

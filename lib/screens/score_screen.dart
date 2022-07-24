@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:pingpongcounter/score_state.dart';
+import 'package:pingpongcounter/screens/score_state.dart';
 
 class ScoreScreen extends StatelessWidget {
   final ScoreState state = ScoreState();
