@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pingpongcounter/screen_match.dart';
+import 'package:pingpongcounter/score_screen.dart';
 
 class PingPongCounterApp extends StatelessWidget {
   @override
