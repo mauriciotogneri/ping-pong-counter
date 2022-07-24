@@ -10,6 +10,7 @@ class ScoreState extends BaseState {
   List<int> points = [0, 0];
   List<int> sets = [0, 0];
   bool isFullscreen = false;
+  bool blueFirst = true;
 
   void onSingleTap(BuildContext context, int playerId) {
     if (server != null) {
@@ -78,6 +79,14 @@ class ScoreState extends BaseState {
     return null;
   }
 
+  Alignment getAlignment(int playerId) {
+    if (blueFirst) {
+      return (playerId == 0) ? Alignment.topLeft : Alignment.topRight;
+    } else {
+      return (playerId == 0) ? Alignment.topRight : Alignment.topLeft;
+    }
+  }
+
   void _showMessage(String message) => Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_LONG,
@@ -94,11 +103,20 @@ class ScoreState extends BaseState {
   }
 
   void onSwapPlayers() {
-    // TODO(momo): implement
+    if (server == null) {
+      blueFirst = !blueFirst;
+      notify();
+    } else {
+      _showMessage('Cannot swap during a game');
+    }
   }
 
   void onFullscreen() {
     isFullscreen = !isFullscreen;
     PlatformMethods().webFullscreen(isFullscreen);
+  }
+
+  void onSounds() {
+    // TODO(momo): implement
   }
 }

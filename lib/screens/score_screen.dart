@@ -56,6 +56,12 @@ class Menu extends StatelessWidget {
             ),
             ButtonDivider(constraints.maxHeight / 6),
             MenuButton(
+              icon: Icons.music_note,
+              onPressed: state.onSounds,
+              size: constraints.maxHeight / 6,
+            ),
+            ButtonDivider(constraints.maxHeight / 6),
+            MenuButton(
               icon:
                   state.isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
               onPressed: state.onFullscreen,
@@ -123,24 +129,45 @@ class PlayerScores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ScoreButton(
-            playerId: 0,
-            color: Colors.blue,
-            state: state,
+    if (state.blueFirst) {
+      return Row(
+        children: [
+          Expanded(
+            child: ScoreButton(
+              playerId: 0,
+              color: Colors.blue,
+              state: state,
+            ),
           ),
-        ),
-        Expanded(
-          child: ScoreButton(
-            playerId: 1,
-            color: Colors.red,
-            state: state,
+          Expanded(
+            child: ScoreButton(
+              playerId: 1,
+              color: Colors.red,
+              state: state,
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Expanded(
+            child: ScoreButton(
+              playerId: 1,
+              color: Colors.red,
+              state: state,
+            ),
+          ),
+          Expanded(
+            child: ScoreButton(
+              playerId: 0,
+              color: Colors.blue,
+              state: state,
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
 
@@ -180,8 +207,7 @@ class ScoreButton extends StatelessWidget {
               ),
               GameScore(
                 value: state.sets[playerId],
-                alignment:
-                    (playerId == 0) ? Alignment.topLeft : Alignment.topRight,
+                alignment: state.getAlignment(playerId),
                 size: constraints.maxWidth / 10,
               ),
             ],
