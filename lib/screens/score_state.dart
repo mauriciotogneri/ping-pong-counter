@@ -105,8 +105,49 @@ class ScoreState extends BaseState {
         fontSize: 1,
       );
 
-  void onRestart() {
-    // TODO(momo): restart (set, match)
+  void onRestart(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsPadding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+          title: const Text('Do you want to restart the match?'),
+          actions: [
+            TextButton(
+              onPressed: Navigator.of(context).pop,
+              child: const Text(
+                'CANCEL',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _restartMatch();
+              },
+              child: const Text(
+                'RESTART',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _restartMatch() {
+    server = null;
+    starter = null;
+    points = [0, 0];
+    sets = [0, 0];
+
+    notify();
   }
 
   void onSwapPlayers() {

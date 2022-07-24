@@ -45,7 +45,7 @@ class Menu extends StatelessWidget {
           children: [
             MenuButton(
               icon: Icons.restart_alt,
-              onPressed: state.onRestart,
+              onPressed: () => state.onRestart(context),
               size: constraints.maxHeight / 6,
             ),
             ButtonDivider(constraints.maxHeight / 6),
