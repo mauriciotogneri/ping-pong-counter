@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pingpongcounter/platform/platform_none.dart'
     if (dart.library.html) 'package:pingpongcounter/platform/platform_web.dart';
 
@@ -24,9 +25,9 @@ class ScoreState extends BaseState {
         sets[playerId]++;
 
         if (winner == 0) {
-          _showMessage(context, 'Blue wins!');
+          _showMessage('Blue wins!');
         } else if (winner == 1) {
-          _showMessage(context, 'Red wins!');
+          _showMessage('Red wins!');
         }
       } else {
         _calculateServer();
@@ -34,7 +35,7 @@ class ScoreState extends BaseState {
 
       notify();
     } else {
-      _showMessage(context, 'Server not defined. Press and hold to select server');
+      _showMessage('Server not defined. Press and hold to select server');
     }
   }
 
@@ -61,13 +62,6 @@ class ScoreState extends BaseState {
     server = (server! + starter!) % 2;
   }
 
-  void _showMessage(BuildContext context, String message) =>
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-        ),
-      );
-
   int? getWinner() {
     if ((points[0] == 11) && (points[1] < 10)) {
       return 0;
@@ -83,6 +77,17 @@ class ScoreState extends BaseState {
 
     return null;
   }
+
+  void _showMessage(String message) => Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5,
+        webBgColor: 'linear-gradient(to right, #000000, #000000)',
+        textColor: Colors.white,
+        webPosition: 'center',
+        fontSize: 1,
+      );
 
   void onRestart() {
     // TODO(momo): restart (set, match)
