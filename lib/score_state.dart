@@ -1,11 +1,14 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:pingpongcounter/platform/platform_none.dart'
+    if (dart.library.html) 'package:pingpongcounter/platform/platform_web.dart';
 
 class ScoreState extends BaseState {
   int? server;
   int? starter;
   List<int> points = [0, 0];
   List<int> sets = [0, 0];
+  bool isFullscreen = false;
 
   void onSingleTap(BuildContext context, int playerId) {
     if (server != null) {
@@ -79,5 +82,18 @@ class ScoreState extends BaseState {
     }
 
     return null;
+  }
+
+  void onRestart() {
+    // TODO(momo): restart (set, match)
+  }
+
+  void onSwapPlayers() {
+    // TODO(momo): implement
+  }
+
+  void onFullscreen() {
+    isFullscreen = !isFullscreen;
+    PlatformMethods().webFullscreen(isFullscreen);
   }
 }

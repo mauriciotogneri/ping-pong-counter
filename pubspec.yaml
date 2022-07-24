@@ -8,9 +8,16 @@ environment:
 
 dependencies:
   dafluta: ^3.6.0
+  wakelock: ^0.6.2
 
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sounds/

@@ -21,6 +21,108 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        PlayerScores(state),
+        Menu(state),
+      ],
+    );
+  }
+}
+
+class Menu extends StatelessWidget {
+  final ScoreState state;
+
+  const Menu(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => Align(
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MenuButton(
+              icon: Icons.restart_alt,
+              onPressed: state.onRestart,
+              size: constraints.maxHeight / 6,
+            ),
+            ButtonDivider(constraints.maxHeight / 6),
+            MenuButton(
+              icon: Icons.swap_horiz,
+              onPressed: state.onSwapPlayers,
+              size: constraints.maxHeight / 6,
+            ),
+            ButtonDivider(constraints.maxHeight / 6),
+            MenuButton(
+              icon:
+                  state.isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
+              onPressed: state.onFullscreen,
+              size: constraints.maxHeight / 6,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ButtonDivider extends StatelessWidget {
+  final double size;
+
+  const ButtonDivider(this.size);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 1,
+      height: size,
+      child: const VerticalDivider(
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+  final double size;
+
+  const MenuButton({
+    required this.icon,
+    required this.onPressed,
+    required this.size,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.black,
+      child: InkWell(
+        onTap: onPressed,
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Icon(
+            icon,
+            size: size / 2,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayerScores extends StatelessWidget {
+  final ScoreState state;
+
+  const PlayerScores(this.state);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
